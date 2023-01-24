@@ -1,0 +1,19 @@
+{
+  "name": "inidica_la_na_firma-back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasDevSystem/indica_la_na_firma-back-end.git"
+  },
+  "author": "Lucas Emanuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasDevSystem/indica_la_na_firma-back-end/issues"
+  },
+  "homepage": "https://github.com/LucasDevSystem/indica_la_na_firma-back-end#readme"
+}
