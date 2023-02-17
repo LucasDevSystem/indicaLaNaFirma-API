@@ -3,18 +3,6 @@ import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-const create = async (req: Request, res: Response) => {
-  try {
-    const user: Prisma.UserCreateInput = req.body
-    const createdUser = await prisma.user.create({ data: user });
-
-    return res.json(createdUser);
-  } catch (error) {
-    console.log(error);
-    return res.status(400);
-  }
-};
-
 const get = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -40,7 +28,7 @@ const update = async (req: Request, res: Response) => {
     return res.json(updatedUser);
   } catch (error) {
     console.log(error);
-    return res.status(400);
+    return res.sendStatus(400);
   }
 };
 
@@ -52,8 +40,8 @@ const del = async (req: Request, res: Response) => {
     return res.json(deleted);
   } catch (error) {
     console.log(error);
-    return res.status(400);
+    return res.sendStatus(400);
   }
 };
 
-module.exports = { create, get, update, del };
+module.exports = { get, update, del };
