@@ -22,7 +22,7 @@ const create = async (req: Request, res: Response) => {
 const get = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const applications = await prisma.application.findMany({ where: { id: parseInt(id) } });
+    const applications = await prisma.application.findMany({ where: { userId: parseInt(id) } });
 
     return res.json(applications);
   } catch (error) {
