@@ -1,6 +1,8 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+
 const { cryptoPass, decryptPass } = require("../utils/cripytoHash");
+const { generateToken } = require("../utils/userToken");
 
 const prisma = new PrismaClient();
 
@@ -17,7 +19,7 @@ const register = async (req: Request, res: Response) => {
     });
 
     if (existing) {
-      return res.status(400).send("user already exists");
+      return res.status(403).send("user already exists");
     }
     // hash password
     const encryptedPassword = cryptoPass(user.password);
@@ -54,20 +56,27 @@ const login = async (req: Request, res: Response) => {
     });
 
     if (!existingUser) {
-      return res.status(400).send("user not found");
+      return res.status(404).send("user not found");
     }
     // decrypt hased password
     const decryptedPassword = decryptPass(existingUser.password);
+
     // validate password
     if (decryptedPassword !== user.password) {
-      return res.status(400).send("invalid password");
+      return res.status(401).send("invalid password");
     }
-
-    return res.json({
+    // only nescessary data
+    const responseUserData = {
       id: existingUser.id,
       name: existingUser.name,
       email: existingUser.email,
-    });
+    };
+    // generate JWT
+    const token = generateToken(responseUserData);
+    // store jwt in user cookie
+    res.cookie("authorization", token, { httpOnly: true, secure: true });
+
+    return res.json(responseUserData);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
