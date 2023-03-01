@@ -16,6 +16,24 @@ const create = async (req: Request, res: Response) => {
     return res.sendStatus(400);
   }
 };
+
+const search = async (req: Request, res: Response) => {
+  try {
+    const {query}: any = req.body;
+    console.log(query);
+    const jobs = await prisma.job.findMany({
+      where: { title: { contains: query.value } },
+      orderBy: { created_at: "desc" },
+      take: 4,
+    });
+
+    return res.json(jobs);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
 // get all avaliable jobs
 const getAll = async (req: Request, res: Response) => {
   try {
@@ -27,6 +45,21 @@ const getAll = async (req: Request, res: Response) => {
     return res.sendStatus(400);
   }
 };
+const getSuggesteds = async (req: Request, res: Response) => {
+  try {
+    const jobs = await prisma.job.findMany({
+      orderBy: { created_at: "desc" },
+      take: 4,
+    });
+
+    return res.json(jobs);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+
 // get one job by id
 const get = async (req: Request, res: Response) => {
   try {
@@ -69,4 +102,4 @@ const del = async (req: Request, res: Response) => {
   }
 };
 
-module.exports = { create, get, update, del, getAll };
+module.exports = { create, get, update, del, getAll, getSuggesteds,search };

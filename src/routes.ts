@@ -11,7 +11,7 @@ const routes = express.Router();
 
 
 //                 MIDDLEWARE
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 //                    AUTH
 routes.post("/auth/register", authController.register);
 routes.post("/auth/login", authController.login);
@@ -25,8 +25,12 @@ routes.get("/profile/:id", profileController.get);
 routes.patch("/profile/:id", profileController.update);
 //                    JOB
 routes.post("/job", jobController.create);
+routes.post("/job/search", jobController.search);
+
+routes.get("/job/suggesteds/:limit", jobController.getSuggesteds);
 routes.get("/job/:id", jobController.get);
 routes.get("/job", jobController.getAll);
+
 routes.patch("/job/:id", jobController.update);
 routes.delete("/job/:id", jobController.del);
 //                APPLICATION
