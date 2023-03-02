@@ -19,12 +19,10 @@ const create = async (req: Request, res: Response) => {
 
 const search = async (req: Request, res: Response) => {
   try {
-    const {query}: any = req.body;
-    console.log(query);
+    const {query}: any = req.body;;
     const jobs = await prisma.job.findMany({
       where: { title: { contains: query.value } },
       orderBy: { created_at: "desc" },
-      take: 4,
     });
 
     return res.json(jobs);
