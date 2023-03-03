@@ -242,14 +242,14 @@
         "description": "",
         "tags": ["application"],
         "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/application"
-                }
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/application"
               }
             }
           }
+        }
       }
     },
     "/application/delete": {
@@ -319,13 +319,13 @@
             "value": { "type": "string" }
           }
         }
-      }
-    },
-    "application": {
-      "type": "object",
-      "properties": {
-        "userId": { "type": "number" },
-        "jobId": { "type": "number" }
+      },
+      "application": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "number" },
+          "jobId": { "type": "number" }
+        }
       }
     }
   }
