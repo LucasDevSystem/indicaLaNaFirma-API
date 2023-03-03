@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Apis Indica la na firma",
+    "description": "Todas apis disponiveis para o front end do indica la na firma.",
+    "contact": {
+      "email": "highspeedsetup@gmail.com"
+    },
+    "servers": [
+      { "url": "http:localhost:1388/", "description": "Teste" },
+      { "url": "http:localhost:1388/", "description": "Producao" }
+    ]
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Cadastrar usuario",
+        "description": "",
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth-register"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login Usuario",
+        "description": "",
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth-login"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user/findById/:id": {
+      "get": {
+        "summary": "Obter usuario",
+        "description": "Obtem dados de um usuario retornando apenas informacoes nescessarias",
+        "tags": ["user"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/user/patch/:id": {
+      "patch": {
+        "summary": "Atualiza  dados usuario",
+        "description": "",
+        "tags": ["user"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user-patch"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/delete/:id": {
+      "delete": {
+        "summary": "Deleta usuario",
+        "description": "Deleta usuario e todas outros dados relacionados em outras tabelas.(efeito cascata)",
+        "tags": ["user"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/profile/:id": {
+      "get": {
+        "summary": "Obter perfil do usuario",
+        "description": "Obtem dados do perfil do usuario",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+
+    "/profile/patch/:id": {
+      "patch": {
+        "summary": "Atualiza  dados  do perfil",
+        "description": "",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/profile-patch"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/job": {
+      "post": {
+        "summary": "Cadastrar uma vaga de trabalho",
+        "description": "",
+        "tags": ["job"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/job"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/job/search": {
+      "post": {
+        "summary": "Pesquisa vagas de trabalho",
+        "description": "",
+        "tags": ["job"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/job-search"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/job/suggesteds/:limit": {
+      "get": {
+        "summary": "Pesquisa vagas de trabalho recentes",
+        "description": "",
+        "tags": ["job"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/job/:id": {
+      "get": {
+        "summary": "Obtem vaga de trabalho",
+        "description": "Obtem vaga de trabalho pelo id",
+        "tags": ["job"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/job/patch/:id": {
+      "patch": {
+        "summary": "Atualiza vaga de trabalho",
+        "description": "Atualiza vaga de trabalho baseado nos campos recebidos",
+        "tags": ["job"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/job"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/job/delete/:id": {
+      "delete": {
+        "summary": "Deleta vaga de trabalho",
+        "description": "Deleta vaga de trabalho",
+        "tags": ["job"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/application": {
+      "post": {
+        "summary": "Candidatar a uma vaga de trabalho",
+        "description": "",
+        "tags": ["application"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/application"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/application/findByUserId/:id": {
+      "get": {
+        "summary": "Obtem todas as candaturas de um usuario",
+        "description": "",
+        "tags": ["application"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    },
+    "/application/patch": {
+      "patch": {
+        "summary": "Autualiza uma candidatura de um usuario",
+        "description": "",
+        "tags": ["application"],
+        "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/application"
+                }
+              }
+            }
+          }
+      }
+    },
+    "/application/delete": {
+      "delete": {
+        "summary": "Deleta uma candidatura de um usuario",
+        "description": "",
+        "tags": ["application"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "auth-register": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "auth-login": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "user-patch": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "phone_number": { "type": "string" },
+          "ra": { "type": "number" }
+        }
+      },
+      "profile-patch": {
+        "type": "object",
+        "properties": {
+          "bio": { "type": "string" },
+          "profile_title": { "type": "string" },
+          "resume": { "type": "string" }
+        }
+      },
+      "job": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "published": { "type": "boolean" },
+          "created_at": { "type": "datetime" },
+          "authorId": { "type": "number" },
+          "offerer": { "type": "string" },
+          "location": { "type": "string" }
+        }
+      },
+      "job-search": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "object",
+            "value": { "type": "string" }
+          }
+        }
+      }
+    },
+    "application": {
+      "type": "object",
+      "properties": {
+        "userId": { "type": "number" },
+        "jobId": { "type": "number" }
+      }
+    }
+  }
+}

@@ -8,7 +8,14 @@ const get = async (req: Request, res: Response) => {
     const { id } = req.params;
     const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
 
-    return res.json(user);
+    // only nescessary data
+    const responseUserData = {
+      id: user?.id,
+      name: user?.name,
+      email: user?.email,
+    };
+
+    return res.json(responseUserData);
   } catch (error) {
     console.log(error);
     return res.status(400);
