@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Apis Indica la na firma",
-    "description": "Todas apis disponiveis para o front end do indica la na firma.",
+    "title": "API Indica la na firma",
+    "description": "Todas as rotas disponiveis para o front end do indica la na firma.",
     "contact": {
       "email": "highspeedsetup@gmail.com"
     },
@@ -25,6 +25,17 @@
               }
             }
           }
+        },
+        "responses":{
+          "200": {
+            "$ref": "#/components/responses/Succes"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/UserExists"
+          }
         }
       }
     },
@@ -41,30 +52,63 @@
               }
             }
           }
+        },
+        "responses":{
+          "200": {
+            "$ref": "#/components/responses/Succes"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401":{
+            "$ref": "#/components/responses/InvalidPassword"
+          },
+          "404":{
+            "$ref": "#/components/responses/UserNotFound"
+          }
         }
+
       }
     },
-
-    "/user/findById/:id": {
+    "/user/findById/{id}": {
       "get": {
         "summary": "Obter usuario",
         "description": "Obtem dados de um usuario retornando apenas informacoes nescessarias",
         "tags": ["user"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
           }
-        ]
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses":{}
       }
     },
-    "/user/patch/:id": {
+    "/user/patch/{id}": {
       "patch": {
         "summary": "Atualiza  dados usuario",
         "description": "",
         "tags": ["user"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -78,39 +122,66 @@
         }
       }
     },
-    "/user/delete/:id": {
+    "/user/delete/{id}": {
       "delete": {
         "summary": "Deleta usuario",
         "description": "Deleta usuario e todas outros dados relacionados em outras tabelas.(efeito cascata)",
         "tags": ["user"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ]
       }
     },
-    "/profile/:id": {
+    "/profile/{id}": {
       "get": {
         "summary": "Obter perfil do usuario",
         "description": "Obtem dados do perfil do usuario",
         "tags": ["profile"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ]
       }
     },
 
-    "/profile/patch/:id": {
+    "/profile/patch/{id}": {
       "patch": {
         "summary": "Atualiza  dados  do perfil",
         "description": "",
         "tags": ["profile"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -156,31 +227,39 @@
         }
       }
     },
-    "/job/suggesteds/:limit": {
+    "/job/suggesteds/{limit}": {
       "get": {
         "summary": "Pesquisa vagas de trabalho recentes",
         "description": "",
         "tags": ["job"],
         "parameters": [
           {
-            "name": "id"
+            "name": "limit",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
           }
         ]
       }
     },
-    "/job/:id": {
+    "/job/{id}": {
       "get": {
         "summary": "Obtem vaga de trabalho",
         "description": "Obtem vaga de trabalho pelo id",
         "tags": ["job"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
           }
         ]
       }
     },
-    "/job/patch/:id": {
+    "/job/patch/{id}": {
       "patch": {
         "summary": "Atualiza vaga de trabalho",
         "description": "Atualiza vaga de trabalho baseado nos campos recebidos",
@@ -193,17 +272,40 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/job/delete/:id": {
+    "/job/delete/{id}": {
       "delete": {
         "summary": "Deleta vaga de trabalho",
         "description": "Deleta vaga de trabalho",
         "tags": ["job"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ]
       }
@@ -221,22 +323,36 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/application/findByUserId/:id": {
+    "/application/findByUserId/{id}": {
       "get": {
         "summary": "Obtem todas as candaturas de um usuario",
         "description": "",
         "tags": ["application"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ]
       }
     },
-    "/application/patch": {
+    "/application/patch/{id}": {
       "patch": {
         "summary": "Autualiza uma candidatura de um usuario",
         "description": "",
@@ -249,23 +365,70 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/application/delete": {
+    "/application/delete/{id}": {
       "delete": {
         "summary": "Deleta uma candidatura de um usuario",
         "description": "",
         "tags": ["application"],
         "parameters": [
           {
-            "name": "id"
+            "name": "id",
+            "in":"path",
+            "schema":{
+              "type":"number"
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ]
       }
     }
   },
   "components": {
+    "securitySchemes":  {
+      "bearerAuth":{
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses":{
+      "UserExists":{
+      "description": "user already exists!"
+      },
+      "BadRequest":{
+        "description": "Bad Request"
+        },
+      "Succes":{
+          "description": "Succes!"
+        },
+        "InvalidPassword":{
+          "description": "Invalid Password!"
+        },
+        "UserNotFound":{
+          "description": "User Not Found!"
+        }
+    },
     "schemas": {
       "auth-register": {
         "type": "object",
