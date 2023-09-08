@@ -4,14 +4,13 @@ const jobController = require("./controllers/JobController");
 const authController = require("./controllers/AuthController");
 const applicationController = require("./controllers/ApplicationController");
 
-const authMiddleware = require("./middlewares/AuthMiddleware");
+const authenticationMiddleware = require("./middlewares/AuthenticationMiddleware");
 
 const express = require("express");
 const routes = express.Router();
 
-
 //                 MIDDLEWARE
-// routes.use(authMiddleware);
+routes.use(authenticationMiddleware);
 //                    AUTH
 routes.post("/auth/register", authController.register);
 routes.post("/auth/login", authController.login);

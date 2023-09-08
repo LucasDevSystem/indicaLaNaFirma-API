@@ -21,6 +21,7 @@ const register = async (req: Request, res: Response) => {
     if (existing) {
       return res.status(403).send("user already exists");
     }
+
     // hash password
     const encryptedPassword = cryptoPass(user.password);
 
@@ -73,10 +74,8 @@ const login = async (req: Request, res: Response) => {
     };
     // generate JWT
     const token = generateToken(responseUserData);
-    // store jwt in user cookie
-    res.cookie("authorization", token, { httpOnly: true, secure: true });
 
-    return res.json(responseUserData);
+    return res.json({ user: responseUserData, token: token });
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
