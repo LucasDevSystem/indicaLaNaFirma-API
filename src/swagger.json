@@ -1,495 +1,718 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "API Indica la na firma",
-    "description": "Todas as rotas disponiveis para o front end do indica la na firma.",
-    "contact": {
-      "email": "highspeedsetup@gmail.com"
-    },
-    "servers": [
-      { "url": "http:localhost:1388/", "description": "Teste" },
-      { "url": "http:localhost:1388/", "description": "Producao" }
-    ]
+  "openapi":"3.0.0",
+  "info":{
+     "title":"API Indica la na firma",
+     "description":"Todas as rotas disponiveis para o front end do indica la na firma.",
+     "contact":{
+        "email":"highspeedsetup@gmail.com"
+     },
+     "servers":[
+        {
+           "url":"http:localhost:1388/",
+           "description":"Teste"
+        },
+        {
+           "url":"http:localhost:1388/",
+           "description":"Producao"
+        }
+     ]
   },
-  "paths": {
-    "/auth/register": {
-      "post": {
-        "summary": "Cadastrar usuario",
-        "description": "",
-        "tags": ["auth"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/auth-register"
+  "paths":{
+     "/auth/register":{
+        "post":{
+           "summary":"Cadastrar usuario",
+           "description":"",
+           "tags":[
+              "auth"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/auth-register"
+                    }
+                 }
               }
-            }
-          }
-        },
-        "responses":{
-          "200": {
-            "$ref": "#/components/responses/Succes"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "403": {
-            "$ref": "#/components/responses/UserExists"
-          }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              },
+              "403":{
+                 "$ref":"#/components/responses/UserExists"
+              }
+           }
         }
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "summary": "Login Usuario",
-        "description": "",
-        "tags": ["auth"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/auth-login"
+     },
+     "/auth/login":{
+        "post":{
+           "summary":"Login Usuario",
+           "description":"",
+           "tags":[
+              "auth"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/auth-login"
+                    }
+                 }
               }
-            }
-          }
-        },
-        "responses":{
-          "200": {
-            "$ref": "#/components/responses/Succes"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401":{
-            "$ref": "#/components/responses/InvalidPassword"
-          },
-          "404":{
-            "$ref": "#/components/responses/UserNotFound"
-          }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              },
+              "401":{
+                 "$ref":"#/components/responses/InvalidPassword"
+              },
+              "404":{
+                 "$ref":"#/components/responses/UserNotFound"
+              }
+           }
         }
-
-      }
-    },
-    "/user/findById/{id}": {
-      "get": {
-        "summary": "Obter usuario",
-        "description": "Obtem dados de um usuario retornando apenas informacoes nescessarias",
-        "tags": ["user"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses":{}
-      }
-    },
-    "/user/patch/{id}": {
-      "patch": {
-        "summary": "Atualiza  dados usuario",
-        "description": "",
-        "tags": ["user"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/user-patch"
+     },
+     "/user/findById/{id}":{
+        "get":{
+           "summary":"Obter usuario",
+           "description":"Obtem dados de um usuario retornando apenas informacoes nescessarias",
+           "tags":[
+              "user"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
               }
-            }
-          }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
         }
-      }
-    },
-    "/user/delete/{id}": {
-      "delete": {
-        "summary": "Deleta usuario",
-        "description": "Deleta usuario e todas outros dados relacionados em outras tabelas.(efeito cascata)",
-        "tags": ["user"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/profile/{id}": {
-      "get": {
-        "summary": "Obter perfil do usuario",
-        "description": "Obtem dados do perfil do usuario",
-        "tags": ["profile"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-
-    "/profile/patch/{id}": {
-      "patch": {
-        "summary": "Atualiza  dados  do perfil",
-        "description": "",
-        "tags": ["profile"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/profile-patch"
+     },
+     "/user/patch/{id}":{
+        "patch":{
+           "summary":"Atualiza  dados usuario",
+           "description":"",
+           "tags":[
+              "user"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
               }
-            }
-          }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/user-patch"
+                    }
+                 }
+              }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
         }
-      }
-    },
-    "/job": {
-      "post": {
-        "summary": "Cadastrar uma vaga de trabalho",
-        "description": "",
-        "tags": ["job"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/job"
+     },
+     "/user/delete/{id}":{
+        "delete":{
+           "summary":"Deleta usuario",
+           "description":"Deleta usuario e todas outros dados relacionados em outras tabelas.(efeito cascata)",
+           "tags":[
+              "user"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
               }
-            }
-          }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
         }
-      }
-    },
-    "/job/search": {
-      "post": {
-        "summary": "Pesquisa vagas de trabalho",
-        "description": "",
-        "tags": ["job"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/job-search"
+     },
+     "/profile/{id}":{
+        "get":{
+           "summary":"Obter perfil do usuario",
+           "description":"Obtem dados do perfil do usuario",
+           "tags":[
+              "profile"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
               }
-            }
-          }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
         }
-      }
-    },
-    "/job/suggesteds/{limit}": {
-      "get": {
-        "summary": "Pesquisa vagas de trabalho recentes",
-        "description": "",
-        "tags": ["job"],
-        "parameters": [
-          {
-            "name": "limit",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ]
-      }
-    },
-    "/job/{id}": {
-      "get": {
-        "summary": "Obtem vaga de trabalho",
-        "description": "Obtem vaga de trabalho pelo id",
-        "tags": ["job"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ]
-      }
-    },
-    "/job/patch/{id}": {
-      "patch": {
-        "summary": "Atualiza vaga de trabalho",
-        "description": "Atualiza vaga de trabalho baseado nos campos recebidos",
-        "tags": ["job"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/job"
+     },
+     "/profile/patch/{id}":{
+        "patch":{
+           "summary":"Atualiza  dados  do perfil",
+           "description":"",
+           "tags":[
+              "profile"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
               }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/job/delete/{id}": {
-      "delete": {
-        "summary": "Deleta vaga de trabalho",
-        "description": "Deleta vaga de trabalho",
-        "tags": ["job"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/application": {
-      "post": {
-        "summary": "Candidatar a uma vaga de trabalho",
-        "description": "",
-        "tags": ["application"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/application"
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
               }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/application/findByUserId/{id}": {
-      "get": {
-        "summary": "Obtem todas as candaturas de um usuario",
-        "description": "",
-        "tags": ["application"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/application/patch/{id}": {
-      "patch": {
-        "summary": "Autualiza uma candidatura de um usuario",
-        "description": "",
-        "tags": ["application"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/application"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/profile-patch"
+                    }
+                 }
               }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/application/delete/{id}": {
-      "delete": {
-        "summary": "Deleta uma candidatura de um usuario",
-        "description": "",
-        "tags": ["application"],
-        "parameters": [
-          {
-            "name": "id",
-            "in":"path",
-            "schema":{
-              "type":"number"
-            }
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job":{
+        "post":{
+           "summary":"Cadastrar uma vaga de trabalho",
+           "description":"",
+           "tags":[
+              "job"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/job"
+                    }
+                 }
+              }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job/search":{
+        "post":{
+           "summary":"Pesquisa vagas de trabalho",
+           "description":"",
+           "tags":[
+              "job"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/job-search"
+                    }
+                 }
+              }
+           },
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job/suggesteds/{limit}":{
+        "get":{
+           "summary":"Pesquisa vagas de trabalho recentes",
+           "description":"",
+           "tags":[
+              "job"
+           ],
+           "parameters":[
+              {
+                 "name":"limit",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job/{id}":{
+        "get":{
+           "summary":"Obtem vaga de trabalho",
+           "description":"Obtem vaga de trabalho pelo id",
+           "tags":[
+              "job"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job/patch/{id}":{
+        "patch":{
+           "summary":"Atualiza vaga de trabalho",
+           "description":"Atualiza vaga de trabalho baseado nos campos recebidos",
+           "tags":[
+              "job"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/job"
+                    }
+                 }
+              }
+           },
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/job/delete/{id}":{
+        "delete":{
+           "summary":"Deleta vaga de trabalho",
+           "description":"Deleta vaga de trabalho",
+           "tags":[
+              "job"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/application":{
+        "post":{
+           "summary":"Candidatar a uma vaga de trabalho",
+           "description":"",
+           "tags":[
+              "application"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/application"
+                    }
+                 }
+              }
+           },
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/application/findByUserId/{id}":{
+        "get":{
+           "summary":"Obtem todas as candaturas de um usuario",
+           "description":"",
+           "tags":[
+              "application"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/application/patch/{id}":{
+        "patch":{
+           "summary":"Autualiza uma candidatura de um usuario",
+           "description":"",
+           "tags":[
+              "application"
+           ],
+           "requestBody":{
+              "content":{
+                 "application/json":{
+                    "schema":{
+                       "$ref":"#/components/schemas/application"
+                    }
+                 }
+              }
+           },
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     },
+     "/application/delete/{id}":{
+        "delete":{
+           "summary":"Deleta uma candidatura de um usuario",
+           "description":"",
+           "tags":[
+              "application"
+           ],
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "schema":{
+                    "type":"number"
+                 }
+              }
+           ],
+           "security":[
+              {
+                 "bearerAuth":[
+                    
+                 ]
+              }
+           ],
+           "responses":{
+              "200":{
+                 "$ref":"#/components/responses/Succes"
+              },
+              "400":{
+                 "$ref":"#/components/responses/BadRequest"
+              }
+           }
+        }
+     }
   },
-  "components": {
-    "securitySchemes":  {
-      "bearerAuth":{
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "responses":{
-      "UserExists":{
-      "description": "user already exists!"
-      },
-      "BadRequest":{
-        "description": "Bad Request"
+  "components":{
+     "securitySchemes":{
+        "bearerAuth":{
+           "type":"http",
+           "scheme":"bearer",
+           "bearerFormat":"JWT"
+        }
+     },
+     "responses":{
+        "UserExists":{
+           "description":"user already exists!"
         },
-      "Succes":{
-          "description": "Succes!"
+        "BadRequest":{
+           "description":"Bad Request"
+        },
+        "Succes":{
+           "description":"Succes!"
         },
         "InvalidPassword":{
-          "description": "Invalid Password!"
+           "description":"Invalid Password!"
         },
         "UserNotFound":{
-          "description": "User Not Found!"
+           "description":"User Not Found!"
         }
-    },
-    "schemas": {
-      "auth-register": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string" },
-          "password": { "type": "string" }
+     },
+     "schemas":{
+        "auth-register":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
+              },
+              "email":{
+                 "type":"string"
+              },
+              "password":{
+                 "type":"string"
+              }
+           }
+        },
+        "auth-login":{
+           "type":"object",
+           "properties":{
+              "email":{
+                 "type":"string"
+              },
+              "password":{
+                 "type":"string"
+              }
+           }
+        },
+        "user-patch":{
+           "type":"object",
+           "properties":{
+              "name":{
+                 "type":"string"
+              },
+              "email":{
+                 "type":"string"
+              },
+              "phone_number":{
+                 "type":"string"
+              },
+              "ra":{
+                 "type":"number"
+              }
+           }
+        },
+        "profile-patch":{
+           "type":"object",
+           "properties":{
+              "bio":{
+                 "type":"string"
+              },
+              "profile_title":{
+                 "type":"string"
+              },
+              "resume":{
+                 "type":"string"
+              }
+           }
+        },
+        "job":{
+           "type":"object",
+           "properties":{
+              "title":{
+                 "type":"string"
+              },
+              "description":{
+                 "type":"string"
+              },
+              "published":{
+                 "type":"boolean"
+              },
+              "created_at":{
+                 "type":"datetime"
+              },
+              "authorId":{
+                 "type":"number"
+              },
+              "offerer":{
+                 "type":"string"
+              },
+              "location":{
+                 "type":"string"
+              }
+           }
+        },
+        "job-search":{
+           "type":"object",
+           "properties":{
+              "query":{
+                 "type":"object",
+                 "value":{
+                    "type":"string"
+                 }
+              }
+           }
+        },
+        "application":{
+           "type":"object",
+           "properties":{
+              "userId":{
+                 "type":"number"
+              },
+              "jobId":{
+                 "type":"number"
+              }
+           }
         }
-      },
-      "auth-login": {
-        "type": "object",
-        "properties": {
-          "email": { "type": "string" },
-          "password": { "type": "string" }
-        }
-      },
-      "user-patch": {
-        "type": "object",
-        "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string" },
-          "phone_number": { "type": "string" },
-          "ra": { "type": "number" }
-        }
-      },
-      "profile-patch": {
-        "type": "object",
-        "properties": {
-          "bio": { "type": "string" },
-          "profile_title": { "type": "string" },
-          "resume": { "type": "string" }
-        }
-      },
-      "job": {
-        "type": "object",
-        "properties": {
-          "title": { "type": "string" },
-          "description": { "type": "string" },
-          "published": { "type": "boolean" },
-          "created_at": { "type": "datetime" },
-          "authorId": { "type": "number" },
-          "offerer": { "type": "string" },
-          "location": { "type": "string" }
-        }
-      },
-      "job-search": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "object",
-            "value": { "type": "string" }
-          }
-        }
-      },
-      "application": {
-        "type": "object",
-        "properties": {
-          "userId": { "type": "number" },
-          "jobId": { "type": "number" }
-        }
-      }
-    }
+     }
   }
 }
