@@ -6,6 +6,12 @@ const { generateToken } = require("../utils/userToken");
 
 const prisma = new PrismaClient();
 
+interface TokenPayload {
+  id: number;
+  name: string;
+  email: string;
+}
+
 const register = async (req: Request, res: Response) => {
   try {
     const user: Prisma.UserCreateInput = req.body;
@@ -67,15 +73,15 @@ const login = async (req: Request, res: Response) => {
       return res.status(401).send("invalid password");
     }
     // only nescessary data
-    const responseUserData = {
+    const payload: TokenPayload = {
       id: existingUser.id,
       name: existingUser.name,
       email: existingUser.email,
     };
     // generate JWT
-    const token = generateToken(responseUserData);
+    const token = generateToken(payload);
 
-    return res.json({ user: responseUserData, token: token });
+    return res.json({ user: payload, token: token });
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

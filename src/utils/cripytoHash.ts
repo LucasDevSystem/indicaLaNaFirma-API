@@ -2,13 +2,13 @@ const CryptoJS = require("crypto-js");
 
 const SECRET = process.env.ENCRYPTION_SECRET;
 
-const cryptoPass = (password: string) => {
+const cryptoPass = (password: string): string => {
   const ciphertext = CryptoJS.AES.encrypt(password, SECRET).toString();
 
   return ciphertext;
 };
 
-const decryptPass = (password: string) => {
+const decryptPass = (password: string): string => {
   const bytes = CryptoJS.AES.decrypt(password, SECRET);
 
   return bytes.toString(CryptoJS.enc.Utf8);
