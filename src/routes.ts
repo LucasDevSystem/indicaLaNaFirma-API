@@ -38,5 +38,4 @@ routes.patch("/application/patch/:id", applicationController.update);
 routes.delete("/application/delete/:id", applicationController.del);
 //               JOB CATEGORY
 
-
-export { routes };
+module.exports = routes;
