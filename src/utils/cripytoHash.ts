@@ -1,17 +1,22 @@
-const CryptoJS = require("crypto-js");
+import { promisify } from "util";
+const bcrypt = require("bcrypt");
+// callback functions to promisse
+const hashPass = promisify(bcrypt.hash);
+const compare = promisify(bcrypt.compare);
 
 const SECRET = process.env.ENCRYPTION_SECRET;
+const SALT_ROUNDS = 10;
 
-const cryptoPass = (password: string): string => {
-  const ciphertext = CryptoJS.AES.encrypt(password, SECRET).toString();
+const cryptoPass = async (password: string): Promise<string> => {
+  const hash = await hashPass(password, SALT_ROUNDS);
 
-  return ciphertext;
+  return hash;
 };
 
-const decryptPass = (password: string): string => {
-  const bytes = CryptoJS.AES.decrypt(password, SECRET);
+const checkPass = async (password: string, hash: string): Promise<boolean> => {
+  const result = await compare(password, hash);
 
-  return bytes.toString(CryptoJS.enc.Utf8);
+  return result;
 };
 
-module.exports = { cryptoPass, decryptPass };
+module.exports = { cryptoPass, checkPass };

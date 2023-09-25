@@ -1,7 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
-const { cryptoPass, decryptPass } = require("../utils/cripytoHash");
+const { cryptoPass, checkPass } = require("../utils/cripytoHash");
 const { generateToken } = require("../utils/userToken");
 
 const prisma = new PrismaClient();
@@ -65,11 +65,11 @@ const login = async (req: Request, res: Response) => {
     if (!existingUser) {
       return res.status(404).send("user not found");
     }
-    // decrypt hased password
-    const decryptedPassword = decryptPass(existingUser.password);
+    // check password
+    const isValid = await checkPass(user.password, existingUser.password);
 
     // validate password
-    if (decryptedPassword !== user.password) {
+    if (!isValid) {
       return res.status(401).send("invalid password");
     }
     // only nescessary data
